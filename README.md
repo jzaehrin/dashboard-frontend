@@ -28,7 +28,7 @@ The solution is built on the folder `dist`. Run `index.html` on your browser.
 
 One of the feature gives weather informations on your prefered location.
 First you have to set up the configuration as follow :  
-- open the file `src/components/App/App.js`
+- open the file `src/components/App/ManageUser.js`
 - find the attribute named `location`
 - Fill it with a correct name from this [link](http://www.prevision-meteo.ch/services/json/list-cities "title" target="_blank").
 
@@ -44,7 +44,7 @@ The application is built in ECMAScript 5, you can check the compatibility inform
 
 ### Weather forecasting
 
-When you start the application, a first block appears with the current weather informations set in the file `src/components/App/App.js`.
+When you start the application, a first block appears with the current weather informations set in the file `src/components/App/ManageUser.js`.
 
 In the future, this location will be inserted by the user at the first start. Or by using geolocation of the browser.
 
