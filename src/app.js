@@ -1,10 +1,8 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-
-// import App from './components/App';
-import Authenticate from './components/Authenticate';
+import App from './components/App';
 
 injectTapEventPlugin();
 
-ReactDom.render(<Authenticate />, document.getElementById('app'));
+ReactDom.render(<App />, document.getElementById('app'));
