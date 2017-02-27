@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 
-import axios from 'axios';
+import Axios from 'axios';
 
 export default class Authenticate extends Component {
   constructor() {
@@ -18,16 +18,15 @@ export default class Authenticate extends Component {
   };
 
   getToken(data) {
-    axios.defaults.baseURL = 'http://localhost:3000/';
-    axios.post('/authenticate', {
-      email: data.login,
-      password: data.password
+    Axios.post('http://localhost:3000/authenticate', {
+      'email': data.login,
+      'password': data.password
     })
       .then(function (response){
         console.log(response);
       })
       .catch(function (error){
-        console.log(error);
+        console.error(error);
       })
   }
 
@@ -66,7 +65,7 @@ export default class Authenticate extends Component {
     };
     let error = '';
     if (this.state.isMissing){
-     error = (<p>Error</p>);
+      error = (<p>Error</p>);
     }
     return (
       <div>
