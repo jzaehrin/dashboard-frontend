@@ -15,7 +15,7 @@ module.exports = {
   module: {
     loaders: [
       {test: /react-icons\/(.)*(.js)$/, loader: 'babel', include: path.resolve(__dirname, './node_modules/react-icons/md'), query: {presets: ['es2015', 'react']}},
-      {test: /\.js$/, exclude: /node_modules/, loaders: ['babel-loader', 'eslint-loader']},
+      {test: /\.js$/, exclude: /node_modules/, loaders: ['babel-loader']},
       {test: /\.css$/, loaders: ['style-loader', 'css-loader?sourceMap&modules&localIdentName=[name]__[local]__[hash:base64:5]']},
       {test: /\.less$/, loaders: ['style-loader', 'css-loader', 'less-loader']},
       {test: /\.png$/, exclude: /node_modules/, loader: 'url-loader', query: {limit: 100000}},

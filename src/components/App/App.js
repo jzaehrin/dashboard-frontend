@@ -4,14 +4,17 @@ import Authenticate from '../Authenticate';
 
 export default class App extends Component {
   state = {};
+
   render() {
     return (
       <MuiThemeProvider>
-        <div id="dashboard" />
-        <div id="admin">
-          <Authenticate />
+        <div>
+          <div id="dashboard" />
+          <div id="admin">
+            <Authenticate />
+          </div>
+          <div id="details" />
         </div>
-        <div id="details" />
       </MuiThemeProvider>
     );
   }
