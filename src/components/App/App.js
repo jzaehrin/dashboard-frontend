@@ -4,7 +4,7 @@ import AppBar from 'material-ui/AppBar';
 import IconButton from 'material-ui/IconButton';
 import MdSettings from 'material-ui/svg-icons/action/settings';
 
-import Authenticate from '../Authenticate';
+import Admin from '../Admin';
 import Dashboard from '../Dashboard';
 
 export default class App extends Component {
@@ -34,7 +34,7 @@ export default class App extends Component {
             <Dashboard />
           </div>
           <div id="admin">
-            <Authenticate />
+            <Admin />
           </div>
           <div id="details" />
         </div>

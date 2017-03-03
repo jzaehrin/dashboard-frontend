@@ -1,10 +1,12 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 
-import Axios from 'axios';
-
 export default class Authenticate extends Component {
+  static propTypes = {
+    onSubmit: PropTypes.func.isRequired,
+  };
+
   constructor() {
     super();
 
@@ -16,19 +18,6 @@ export default class Authenticate extends Component {
     password: '',
     isMissing: false,
   };
-
-  getToken(data) {
-    Axios.post('http://localhost:3000/authenticate', {
-      'email': data.login,
-      'password': data.password
-    })
-      .then(function (response){
-        console.log(response);
-      })
-      .catch(function (error){
-        console.error(error);
-      })
-  }
 
   onSubmit(e) {
     console.log(this.login);
@@ -55,7 +44,7 @@ export default class Authenticate extends Component {
     this.setState(data);
 
     if (!isMissing){
-      this.getToken(data);
+      this.props.onSubmit(data);
     }
   }
 
