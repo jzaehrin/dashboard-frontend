@@ -1,3 +1,3 @@
-import App from './Project';
+import Project from './Project';
 
-export default App;
+export default Project;

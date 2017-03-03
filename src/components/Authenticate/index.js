@@ -1,3 +1,3 @@
-import App from './Authenticate';
+import Authenticate from './Authenticate';
 
-export default App;
+export default Authenticate;

@@ -1,3 +1,3 @@
-import App from './Dashboard';
+import Dashboard from './Dashboard';
 
-export default App;
+export default Dashboard;
