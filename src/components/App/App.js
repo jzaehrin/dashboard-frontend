@@ -6,6 +6,8 @@ import MdSettings from 'material-ui/svg-icons/action/settings';
 
 import Admin from '../Admin';
 import Dashboard from '../Dashboard';
+import ManageProject from '../Admin/ManageProject';
+import ManageUser from '../Admin/ManageUser';
 
 export default class App extends Component {
   constructor() {
@@ -37,6 +39,12 @@ export default class App extends Component {
             <Admin />
           </div>
           <div id="details" />
+          <div id="manageUser">
+            <ManageUser />
+          </div>
+          <div id="manageProject">
+            <ManageProject />
+          </div>
         </div>
       </MuiThemeProvider>
     );

@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
+import {cyan50} from 'material-ui/styles/colors';
 
 export default class Authenticate extends Component {
   static propTypes = {
@@ -61,18 +62,17 @@ export default class Authenticate extends Component {
         <h2>Formulaire de connexion</h2>
         <form onSubmit={this.onSubmit}>
           <TextField
-            hintText="Login"
-            floatingLabelText="Login"
+            floatingLabelText="Email"
             ref={(login) => { this.login = login; }}
           /><br />
           <TextField
-            hintText="Mot de passe"
             floatingLabelText="Mot de passe"
             type="password"
             ref={(password) => { this.password = password; }}
           /><br />
           {error}
           <RaisedButton
+            backgroundColor={cyan50}
             type="submit"
             label="Connexion"
             style={style} />
