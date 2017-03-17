@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 
 import Authenticate from '../Authenticate';
+import ManageProject from '../Admin/ManageProject';
+import ManageUser from '../Admin/ManageUser';
 
 import Axios from 'axios';
 
@@ -35,8 +37,9 @@ export default class Admin extends Component {
     this.getToken(data)
   }
 
-  logout(){
+  logout = () => {
     localStorage.clear();
+    this.forceUpdate();
   }
 
   isAuthenticate(){
@@ -50,19 +53,25 @@ export default class Admin extends Component {
   }
   
   render(){
-    const style = {
-      margin: 12,
-    };
+
     let page_login = '';
     let page_panel = '';
+
     if(this.isAuthenticate()){
+      let auth_jwt = localStorage.getItem('x-access-token');
+      console.log("JWT Token", auth_jwt);
       page_panel = (
-        <form onSubmit={this.logout}>
+        <div>
           <RaisedButton
             type="submit"
             label="Déconnexion"
-            style={style} />
-        </form>
+            onClick={this.logout}
+          />
+          <ManageUser
+            auth_jwt={auth_jwt}
+          />
+          <ManageProject />
+        </div>
       );
     }else{
       page_login = (
