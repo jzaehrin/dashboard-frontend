@@ -32,7 +32,7 @@ export default class App extends Component {
   getProjectManager(){
     this.axios.get('http://localhost:3000/admin/users')
       .then((response) => {
-        console.log("Users", response.data);
+        console.log("Users", response.data[1]);
         this.setState({users: response.data});
       })
       .catch((error) => {
@@ -93,10 +93,12 @@ export default class App extends Component {
   }
 
   render() {
+    console.log(this.state.users, JwtDecode(this.props.auth_jwt));
+
     let users = this.state.users.map((user, index) => (
       <Chip
         onRequestDelete={
-          (user.id = JwtDecode(this.props.auth_jwt).user_id) ?
+          (user.id == JwtDecode(this.props.auth_jwt).user_id) ?
             null:
             this.handleDeleteProjectManager.bind(null, user)
         }
