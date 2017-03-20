@@ -6,8 +6,9 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Chip from 'material-ui/Chip';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+import Avatar from 'material-ui/Avatar';
 import moment from 'moment';
-import {cyan50} from 'material-ui/styles/colors';
+import {cyan50, cyan100, cyanA700 } from 'material-ui/styles/colors';
 
 export default class App extends Component {
   static propTypes = {
@@ -49,7 +50,7 @@ export default class App extends Component {
       })
   }
 
-  handleRequestDelete = (tag) => {
+  handleRequestDeleteTags = (tag) => {
     this.setState(s => {
       return {tags: [...s.tags.filter(t => t !== tag)]}
     });
@@ -143,26 +144,50 @@ export default class App extends Component {
     }
   }
 
+  handleRequestDeleteProjects = (project) => {
+    this.axios.delete("http://localhost:3000/admin/projects/" + project.id)
+      .then((response) => {
+        this.getProjects();
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
   render() {
     const style = {
       marginRight: 20,
     };
-
-    let error = '';
-    if (this.state.isMissing){
-      error = (<p>Il y a des champs vides</p>);
+    const chip = {
+      margin: 4,
     }
+    let projects = this.state.projects.map((project, index) => (
+      <Chip
+        style={chip}
+        backgroundColor={cyan100}
+        onRequestDelete={this.handleRequestDeleteProjects.bind(null, project)}
+      >
+        <Avatar
+          backgroundColor={cyanA700}>
+          {project.user.username.substring(0,2).toUpperCase()}
+        </Avatar>
+        {project.title}
+      </Chip>
+    ));
 
     let tags = this.state.tags.map((tag, index) => (
       <Chip
-        onRequestDelete={this.handleRequestDelete.bind(null, tag)}
+        backgroundColor={cyanA700}
+        onRequestDelete={this.handleRequestDeleteTags.bind(null, tag)}
       >{tag}</Chip>
     ));
 
     return (
       <div>
+        <h2>Supprimer un project</h2>
+        {projects}
+        <br />
         <h2>Créer un projet</h2>
-        {error}
         <form onSubmit={this.createProject}>
           <TextField
             floatingLabelText="Titre"
