@@ -70,20 +70,29 @@ export default class Admin extends Component {
 
     if(this.isAuthenticate()){
       let auth_jwt = localStorage.getItem('x-access-token');
-      console.log("JWT Token", auth_jwt);
-      page_panel = (
-        <div>
+      console.log(JwtDecode(auth_jwt));
+
+      let admin_panel = '';
+      if (JwtDecode(auth_jwt).is_admin) {
+        admin_panel = (
           <ManageUser
             auth_jwt={auth_jwt}
           />
-          <ManageProject
-            auth_jwt={auth_jwt}
-          /><br />
+       );
+      }
+
+      page_panel = (
+        <div>
           <RaisedButton
             backgroundColor={cyan700}
             type="submit"
             label="Déconnexion"
             onClick={this.logout}
+          /><br />
+          {admin_panel}
+          <br />
+          <ManageProject
+            auth_jwt={auth_jwt}
           />
         </div>
       );
