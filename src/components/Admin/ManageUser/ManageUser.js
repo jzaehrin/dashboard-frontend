@@ -5,8 +5,6 @@ import Toggle from 'material-ui/Toggle';
 import Axios from 'axios';
 import RaisedButton from 'material-ui/RaisedButton';
 
-import {cyan100} from 'material-ui/styles/colors';
-
 export default class App extends Component {
 
   static propTypes = {

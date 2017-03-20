@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
+import {cyan700} from 'material-ui/styles/colors';
 
 import Authenticate from '../Authenticate';
 import ManageProject from '../Admin/ManageProject';
@@ -62,15 +63,18 @@ export default class Admin extends Component {
       console.log("JWT Token", auth_jwt);
       page_panel = (
         <div>
+          <ManageUser
+            auth_jwt={auth_jwt}
+          />
+          <ManageProject
+            auth_jwt={auth_jwt}
+          /><br />
           <RaisedButton
+            backgroundColor={cyan700}
             type="submit"
             label="Déconnexion"
             onClick={this.logout}
           />
-          <ManageUser
-            auth_jwt={auth_jwt}
-          />
-          <ManageProject />
         </div>
       );
     }else{

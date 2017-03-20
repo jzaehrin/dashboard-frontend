@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
-import {cyan50} from 'material-ui/styles/colors';
+import {cyan700} from 'material-ui/styles/colors';
 
 export default class Authenticate extends Component {
   static propTypes = {
@@ -21,12 +21,12 @@ export default class Authenticate extends Component {
   };
 
   onSubmit(e) {
-    console.log(this.login);
     e.preventDefault();
 
     /* Test case if require field is filled */
     let error = false;
     let isMissing = false;
+
     if (!this.login.input.value) {
       error = true;
       isMissing = true;
@@ -53,9 +53,11 @@ export default class Authenticate extends Component {
     const style = {
       margin: 12,
     };
+
     let error = '';
+
     if (this.state.isMissing){
-      error = (<p>Error</p>);
+      error = (<p>Email ou mot de passe incorrect</p>);
     }
     return (
       <div>
@@ -72,7 +74,7 @@ export default class Authenticate extends Component {
           /><br />
           {error}
           <RaisedButton
-            backgroundColor={cyan50}
+            backgroundColor={cyan700}
             type="submit"
             label="Connexion"
             style={style} />
