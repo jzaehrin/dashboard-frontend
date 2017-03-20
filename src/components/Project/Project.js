@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
+import Avatar from 'material-ui/Avatar';
 
 import formatProject from '../../utils/project_helper';
 
@@ -47,6 +48,7 @@ export default class Dashboard extends Component {
           title={project.status}
           subtitle={project.deadline}
           style={style}
+          avatar={(<Avatar>{project.user.username.substring(0,2).toUpperCase()}</Avatar>)}
         />
         <CardTitle
           title={project.title}

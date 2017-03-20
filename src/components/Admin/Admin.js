@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import {cyan700} from 'material-ui/styles/colors';
-
+import JwtDecode from 'jwt-decode';
+import Moment from 'moment';
 import Authenticate from '../Authenticate';
 import ManageProject from '../Admin/ManageProject';
 import ManageUser from '../Admin/ManageUser';
@@ -46,10 +47,19 @@ export default class Admin extends Component {
   isAuthenticate(){
     let token = localStorage.getItem('x-access-token');
 
-    if(token){
-      return true;
-    }else{
-      return false;
+    if(token) {
+      var timestamp = Moment().format("X");
+      var decoded = JwtDecode(token);
+
+      if (timestamp < decoded.exp) {
+        return true;
+      } else {
+        localStorage.removeItem('x-access-token');
+        return false;
+      }
+    }
+    else {
+      return false
     }
   }
   
