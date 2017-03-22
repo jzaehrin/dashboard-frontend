@@ -27,6 +27,9 @@ export default class App extends Component {
 
   state = {
     users: [],
+    error: {
+      create: false,
+    },
   }
 
   getProjectManager(){
@@ -45,17 +48,25 @@ export default class App extends Component {
     let username = this.username.input.value;
     let email = this.email.input.value;
 
-    if (!username &&
-        !email &&
+    if (!username ||
+        !email ||
         !this.password.input.value)
     {
-      this.setState({create_error: true})
+      this.setState({error: {
+        create: true
+      }});
     }
     else if(this.state.users.filter(u => u.username === username).length > 0 ){
-      this.setState({create_error: true, create_error_message: "Ce Username existe déjà"})
+      this.setState({error: {
+        create: true,
+        username_message: "Ce Username existe déjà",
+      }});
     }
     else if(this.state.users.filter(u => u.email  === email).length > 0 ){
-      this.setState({create_error: true, create_error_message: "Cette email existe déjà"})
+      this.setState({error: {
+        create: true,
+        email_message: "Cette email existe déjà",
+      }});
     }
     else
     {
@@ -71,13 +82,18 @@ export default class App extends Component {
           this.email.input.value = "";
           this.username.input.value = "";
           this.password.input.value = "";
-          this.setState({create_error: false})
+          this.setState({error: {
+            create: false
+          }});
 
           this.getProjectManager();
         })
         .catch((error) => {
           console.error("Create Project Manager Error :", error);
-          this.setState({create_error: false, create_error_message: "Unable to create User"})
+          this.setState({error: {
+            create: true,
+            sending_message: "Unable to create User",
+          }});
         })
     }
   }
@@ -93,7 +109,8 @@ export default class App extends Component {
   }
 
   render() {
-    console.log(this.state.users, JwtDecode(this.props.auth_jwt));
+    console.log(this.state);
+    let error = this.state.error.create;
 
     let users = this.state.users.map((user, index) => (
       <Chip
@@ -106,40 +123,62 @@ export default class App extends Component {
       >{user.username} -- {user.email}</Chip>
     ));
 
-    let create_error_message = ""
-    if (this.state.create_error && this.state.create_error_message) {
-      create_error_message = (<p>{this.state.create_error_message}</p>);
+    let error_message = ""
+    if (error && this.state.error.message) {
+      error_message = (<p>{this.state.error.message}</p>);
+    }
+
+    let username_error = ""
+    if (error) {
+      if (this.state.error.username_message) {
+        username_error = this.state.error.username_message;
+        this.state.error.username_message = "";
+      } else if (this.username.input.value == "") {
+        username_error = "Le champ est vide";
+      }
+    }
+
+    let email_error = ""
+    if (error) {
+      if (this.state.error.email_message) {
+        email_error = this.state.error.email_message;
+        this.state.error.email_message = "";
+      } else if (this.email.input.value == "") {
+        email_error = "Le champ est vide";
+      }
     }
 
     return (
       <div>
-        <h2>Créer un chef de projet</h2>
-        <TextField
-          floatingLabelText="Username"
-          errorText={(this.state.create_error && this.username.input.value == "") ? "Le champ est vide": ""}
-          ref={(username) => this.username = username}
-        /><br />
-        <TextField
-          floatingLabelText="Email"
-          errorText={(this.state.create_error && this.email.input.value == "") ? "Le champ est vide": ""}
-          ref={(email) => this.email = email}
-        /><br />
-        <TextField
-          floatingLabelText="Mot de passe"
-          type="password"
-          errorText={(this.state.create_error && this.password.input.value == "") ? "Le champ est vide": ""}
-          ref={(password) => this.password = password}
-        /><br />
-        <Toggle
-          label="Admin"
-          ref={(isAdmin) => this.isAdmin = isAdmin}
-        /><br />
-        {create_error_message}
-        <RaisedButton
-          label="Add"
-          primary={true}
-          onClick={this.createProjectManager}
-        />
+        <form onSubmit={this.createProjectManager}>
+          <h2>Créer un chef de projet</h2>
+          <TextField
+            floatingLabelText="Username"
+            errorText={username_error}
+            ref={(username) => this.username = username}
+          /><br />
+          <TextField
+            floatingLabelText="Email"
+            errorText={email_error}
+            ref={(email) => this.email = email}
+          /><br />
+          <TextField
+            floatingLabelText="Mot de passe"
+            type="password"
+            errorText={(error && this.password.input.value == "") ? "Le champ est vide": ""}
+            ref={(password) => this.password = password}
+          /><br />
+          <Toggle
+            label="Admin"
+            ref={(isAdmin) => this.isAdmin = isAdmin}
+          /><br />
+          {error_message}
+          <RaisedButton
+            label="Add"
+            type="submit"
+            primary={true}
+          />
+        </form>
 
         <h2>Supprimer un chef de projet</h2>
         {users}

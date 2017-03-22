@@ -18,6 +18,10 @@ export default class Admin extends Component {
     this.isAuthenticate = this.isAuthenticate.bind(this);
   }
 
+  state = {
+    auth_error: ""
+  };
+
   getToken(data) {
     Axios.post('http://localhost:3000/authenticate', {
       'email': data.login,
@@ -31,7 +35,10 @@ export default class Admin extends Component {
         });
       })
       .catch((error) =>{
-        console.error(error);
+        console.error("Authentification Error:", error);
+        this.setState({
+          auth_error: "Email ou Mot de passe incorrect !"
+        });
       })
   }
 
@@ -98,7 +105,10 @@ export default class Admin extends Component {
       );
     }else{
       page_login = (
-        <Authenticate onSubmit={this.onSubmitCredential}/>
+        <Authenticate
+          onSubmit={this.onSubmitCredential}
+          loginError={(this.state.auth_error) ? this.state.auth_error : null}
+        />
       );
     }
 

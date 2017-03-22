@@ -3,9 +3,12 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import {cyan700} from 'material-ui/styles/colors';
 
+import style from './Authenticate.less';
+
 export default class Authenticate extends Component {
   static propTypes = {
     onSubmit: PropTypes.func.isRequired,
+    loginError: PropTypes.string,
   };
 
   constructor() {
@@ -17,7 +20,7 @@ export default class Authenticate extends Component {
   state = {
     login: '',
     password: '',
-    isMissing: false,
+    error: false,
   };
 
   onSubmit(e) {
@@ -25,27 +28,33 @@ export default class Authenticate extends Component {
 
     /* Test case if require field is filled */
     let error = false;
-    let isMissing = false;
 
     if (!this.login.input.value) {
       error = true;
-      isMissing = true;
     }
     if (!this.password.input.value) {
       error = true;
-      isMissing = true;
     }
 
-    const data = {
-      login: this.login.input.value,
-      password: this.password.input.value,
-      isMissing,
-    };
+    if(error) {
+      this.setState({error});
+    } else {
+      this.setState({
+        login: this.login.input.value,
+        password: this.password.input.value,
+        error: false
+      });
 
-    this.setState(data);
+      this.props.onSubmit({
+        login: this.login.input.value,
+        password: this.password.input.value
+      });
+    }
+  }
 
-    if (!isMissing){
-      this.props.onSubmit(data);
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.loginError) {
+      this.setState({loginError: nextProps.loginError});
     }
   }
 
@@ -54,11 +63,13 @@ export default class Authenticate extends Component {
       margin: 12,
     };
 
-    let error = '';
-
-    if (this.state.isMissing){
-      error = (<p>Email ou mot de passe incorrect</p>);
+    let error = "Le champ est vide";
+    if (this.state.loginError){
+      error = this.state.loginError;
+      this.state.loginError = "";
+      this.password.input.value = "";
     }
+
     return (
       <div>
         <h2>Formulaire de connexion</h2>
@@ -66,13 +77,14 @@ export default class Authenticate extends Component {
           <TextField
             floatingLabelText="Email"
             ref={(login) => { this.login = login; }}
+            errorText={(this.props.loginError || this.state.error && this.login.input.value == "") ? error : ""}
           /><br />
           <TextField
             floatingLabelText="Mot de passe"
             type="password"
             ref={(password) => { this.password = password; }}
+            errorText={(this.state.error && this.password.input.value == "") ? "Le champ est vide": ""}
           /><br />
-          {error}
           <RaisedButton
             backgroundColor={cyan700}
             type="submit"

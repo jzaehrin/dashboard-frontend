@@ -1,3 +1,3 @@
-import App from './ManageProject';
+import ManageProject from './ManageProject';
 
-export default App;
+export default ManageProject;
