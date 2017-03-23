@@ -33,7 +33,7 @@ export default class App extends Component {
   }
 
   getProjectManager(){
-    this.axios.get('http://localhost:3000/admin/users')
+    this.axios.get('https://markal.servehttp.com/dashboard/admin/users')
       .then((response) => {
         console.log("Users", response.data[1]);
         this.setState({users: response.data});
@@ -70,7 +70,7 @@ export default class App extends Component {
     }
     else
     {
-      this.axios.post("http://localhost:3000/admin/users", {
+      this.axios.post("https://markal.servehttp.com/dashboard/admin/users", {
         user: {
           username: this.username.input.value,
           email: this.email.input.value,
@@ -99,7 +99,7 @@ export default class App extends Component {
   }
 
   handleDeleteProjectManager = (user) => {
-    this.axios.delete("http://localhost:3000/admin/users/" + user.id)
+    this.axios.delete("https://markal.servehttp.com/dashboard/admin/users/" + user.id)
       .then((response) => {
         this.getProjectManager();
       })

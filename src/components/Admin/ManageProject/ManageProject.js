@@ -39,7 +39,7 @@ export default class ManageProject extends Component {
   }
 
   getProjects = () => {
-    this.axios.get('http://localhost:3000/admin/projects')
+    this.axios.get('https://markal.servehttp.com/dashboard/admin/projects')
       .then((response) => {
         console.log("Projects", response.data);
         this.setState({projects: response.data});
@@ -50,7 +50,7 @@ export default class ManageProject extends Component {
   }
 
   handleRequestDeleteProjects = (project) => {
-    this.axios.delete("http://localhost:3000/admin/projects/" + project.id)
+    this.axios.delete("https://markal.servehttp.com/dashboard/admin/projects/" + project.id)
       .then((response) => {
         this.getProjects();
       })

@@ -23,7 +23,7 @@ export default class Admin extends Component {
   };
 
   getToken(data) {
-    Axios.post('http://localhost:3000/authenticate', {
+    Axios.post('https://markal.servehttp.com/dashboard/authenticate', {
       'email': data.login,
       'password': data.password
     })

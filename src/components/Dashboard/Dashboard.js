@@ -28,7 +28,7 @@ export default class Dashboard extends Component {
 
   getProjects(search) {
     if (search) {
-      Axios.get('http://localhost:3000/projects/search', {
+      Axios.get('https://markal.servehttp.com/dashboard/projects/search', {
           params: {
             string: search
           }
@@ -40,7 +40,7 @@ export default class Dashboard extends Component {
           console.error(error);
         })
     } else {
-      Axios.get('http://localhost:3000/projects')
+      Axios.get('https://markal.servehttp.com/dashboard/projects')
         .then((response) => {
           this.setState({projects: response.data});
         })

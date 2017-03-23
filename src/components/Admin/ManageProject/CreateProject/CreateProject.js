@@ -92,7 +92,7 @@ export default class CreateProject extends Component {
     }
     else
     {
-      this.axios.post("http://localhost:3000/admin/projects", {
+      this.axios.post("https://markal.servehttp.com/dashboard/admin/projects", {
         project: {
           title: this.title.input.value,
           short_description: this.shortDescription.input.refs.input.value,

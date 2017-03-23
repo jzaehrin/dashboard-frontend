@@ -125,7 +125,7 @@ export default class UpdateProject extends Component {
     }
     else
     {
-      this.axios.put("http://localhost:3000/admin/projects/" + this.props.project.id, {
+      this.axios.put("https://markal.servehttp.com/dashboard/admin/projects/" + this.props.project.id, {
         project: {
           title: this.title.input.value,
           short_description: this.shortDescription.input.refs.input.value,
