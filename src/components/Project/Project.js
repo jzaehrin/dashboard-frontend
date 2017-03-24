@@ -32,12 +32,12 @@ export default class Dashboard extends Component {
 
   state = {};
 
+  // Display the details for a project
   handleDetails() {
     if(this.props.handleDetails){
       this.props.handleDetails(this.props.data);
     }
   }
-
 
   render() {
     const style = {
@@ -45,6 +45,7 @@ export default class Dashboard extends Component {
     }
     let project = formatProject(this.props.data);
 
+    // Display the different card for the projects
     return (
       <Card>
         <CardHeader

@@ -104,17 +104,24 @@ export default class Filter extends Component {
   };
 
   render() {
+    const chip = {
+      margin: 4,
+    };
+
     // Add a tag
     let tags = this.state.tags.map((tag, index) => (
       <Chip
+        style={chip}
         backgroundColor={cyanA700}
         onRequestDelete={this.handleRequestDelete.bind(null, tag)}
       >{tag}</Chip>
     ));
 
+    // Display the different filters
     return (
       <div>
         <div>
+          {/* Display the field for the search */}
           <TextField
             hintText="Seulement un mot-clé"
             floatingLabelText="Chercher par mots-clé"
@@ -131,6 +138,7 @@ export default class Filter extends Component {
           />
         </div>
         <div>
+          {/* Display the different status in a selected field*/}
           <SelectField
             floatingLabelText="Status"
             value={this.state.statusValue}
@@ -141,6 +149,7 @@ export default class Filter extends Component {
             <MenuItem value={2} primaryText="Annulé" />
             <MenuItem value={3} primaryText="Terminé" />
           </SelectField>
+          {/* Display a form for the date and can choose if the date is before or after the date selected */}
           <DatePicker
             hintText="Date de fin"
             container="inline"
@@ -162,6 +171,7 @@ export default class Filter extends Component {
               label="Après"
             />
           </RadioButtonGroup>
+          {/* Display the field to add different tags */}
           <TextField
             hintText="Mots-clé sans accent !"
             floatingLabelText="Ajouter une tag"

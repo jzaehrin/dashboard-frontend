@@ -22,7 +22,6 @@ export default class Dashboard extends Component {
 
   constructor() {
     super();
-
   }
 
   state = {};
@@ -30,6 +29,7 @@ export default class Dashboard extends Component {
   render() {
     let project = formatProject(this.props.data);
 
+    // Display the details for a project
     return (
       <Card>
         <CardHeader
@@ -40,10 +40,10 @@ export default class Dashboard extends Component {
         <CardTitle title={project.title} subtitle={project.short_description} />
         <CardText>
           <p>
-            <strong>Project manager:</strong> {project.user.username} - {project.user.email}
+            <strong>Chef de projet:</strong> {project.user.username} - {project.user.email}
           </p>
           <p>
-            <strong>Number of people:</strong> {project.nbr_people}
+            <strong>Nombre de personnes:</strong> {project.nbr_people}
           </p>
           <p>
             <strong>Tags :</strong> {project.tags}

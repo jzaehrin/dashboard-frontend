@@ -29,10 +29,8 @@ export default class Authenticate extends Component {
     /* Test case if require field is filled */
     let error = false;
 
-    if (!this.login.input.value) {
-      error = true;
-    }
-    if (!this.password.input.value) {
+    if (!this.login.input.value ||
+        !this.password.input.value) {
       error = true;
     }
 
@@ -63,6 +61,7 @@ export default class Authenticate extends Component {
       margin: 12,
     };
 
+    // Display a error if the fields are empty
     let error = "Le champ est vide";
     if (this.state.loginError){
       error = this.state.loginError;
@@ -70,6 +69,7 @@ export default class Authenticate extends Component {
       this.password.input.value = "";
     }
 
+    // Form for the authentication, display a error if the fields are empty
     return (
       <div>
         <h2>Formulaire de connexion</h2>
@@ -82,8 +82,8 @@ export default class Authenticate extends Component {
           <TextField
             floatingLabelText="Mot de passe"
             type="password"
-            ref={(password) => { this.password = password; }}
             errorText={(this.state.error && this.password.input.value == "") ? "Le champ est vide": ""}
+            ref={(password) => { this.password = password; }}
           /><br />
           <RaisedButton
             backgroundColor={cyan700}
