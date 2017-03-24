@@ -8,6 +8,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Chip from 'material-ui/Chip';
 import MDClear from 'material-ui/svg-icons/content/clear';
 import MDSearch from 'material-ui/svg-icons/action/search';
+import {cyanA700 } from 'material-ui/styles/colors';
 
 
 export default class Filter extends Component {
@@ -24,6 +25,7 @@ export default class Filter extends Component {
     tags: [],
   }
 
+  // Delete a tag
   handleRequestDelete = (tag) => {
     this.setState(s => {
       return {tags: [...s.tags.filter(t => t !== tag)]}
@@ -32,23 +34,28 @@ export default class Filter extends Component {
     });
   }
 
+  //
   handleDatePickerChange = (empty, date) => {
     this.props.handleDatePickerChange(date);
   }
 
+  //
   handleDateTypeChange = (event, value) => {
     this.props.handleDateTypeChange(value);
   }
 
+  // Create a search
   handleSearch = (event) => {
     this.props.handleSearch(this.search.input.value);
   }
 
+  // Clear the search
   handleClearSearch = (event) => {
     this.search.input.value = "";
     this.props.handleSearch("");
   }
 
+  // Add a tag
   handleAddTag = (event) => {
     event.preventDefault();
 
@@ -62,6 +69,7 @@ export default class Filter extends Component {
     }
   }
 
+  // Define the different status for the filter of projects
   handleStatusChange = (event, index, statusValue) => {
     let selectedStatus = '';
 
@@ -87,8 +95,10 @@ export default class Filter extends Component {
   };
 
   render() {
+    // Add a tag
     let tags = this.state.tags.map((tag, index) => (
       <Chip
+        backgroundColor={cyanA700}
         onRequestDelete={this.handleRequestDelete.bind(null, tag)}
       >{tag}</Chip>
     ));
@@ -97,8 +107,8 @@ export default class Filter extends Component {
       <div>
         <div>
           <TextField
-            hintText="Only 1 keywords or sentence"
-            floatingLabelText="Search by keywords"
+            hintText="Seulement un mot-clé"
+            floatingLabelText="Chercher par mots-clé"
             ref={(search) => this.search = search}
           />
           <RaisedButton
@@ -119,9 +129,9 @@ export default class Filter extends Component {
             onChange={this.handleStatusChange}
           >
             <MenuItem value={0} primaryText="<None>" />
-            <MenuItem value={1} primaryText="In progress" />
-            <MenuItem value={2} primaryText="Canceled" />
-            <MenuItem value={3} primaryText="Finish" />
+            <MenuItem value={1} primaryText="En cours" />
+            <MenuItem value={2} primaryText="Annulé" />
+            <MenuItem value={3} primaryText="Terminé" />
           </SelectField>
           <DatePicker
             hintText="Date de fin"
@@ -135,19 +145,19 @@ export default class Filter extends Component {
           >
             <RadioButton
               value={-1}
-              label="Before"
+              label="Avant"
             />
             <RadioButton
               value={1}
-              label="After"
+              label="Après"
             />
           </RadioButtonGroup>
           <TextField
-            hintText="Keywords without accent !"
-            floatingLabelText="Add tag for filter"
+            hintText="Mots-clé sans accent !"
+            floatingLabelText="Ajouter une tag"
             ref={(field) => this.tagField = field}
           />
-          <RaisedButton label="Add" primary={true} onClick={this.handleAddTag}/>
+          <RaisedButton label="Ajouter" primary={true} onClick={this.handleAddTag}/>
           <div>
             {tags}
           </div>

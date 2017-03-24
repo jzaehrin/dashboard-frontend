@@ -152,7 +152,6 @@ export default class Dashboard extends Component {
         >
           <Subheader>Projects</Subheader>
           {projects}
-
         </GridList>
       </div>
     );

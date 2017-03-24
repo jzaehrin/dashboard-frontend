@@ -6,9 +6,8 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Chip from 'material-ui/Chip';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
-
 import moment from 'moment';
-import {cyan50, cyan100, cyanA700 } from 'material-ui/styles/colors';
+import {cyan50, cyanA700 } from 'material-ui/styles/colors';
 
 export default class CreateProject extends Component {
   static propTypes = {
@@ -35,12 +34,14 @@ export default class CreateProject extends Component {
     create_error: false,
   }
 
+  // Delete a tag
   handleRequestDeleteTags = (tag) => {
     this.setState(s => {
       return {tags: [...s.tags.filter(t => t !== tag)]}
     });
   }
 
+  // Add a tag
   handleAddTag = (event) => {
     event.preventDefault();
 
@@ -53,6 +54,7 @@ export default class CreateProject extends Component {
     }
   }
 
+  // Define the different status that the user can choose for the creation for a project
   handleStatusChange = (event, index, statusValue) => {
     let selectedStatus = '';
 
@@ -76,11 +78,11 @@ export default class CreateProject extends Component {
     this.setState({statusValue, selectedStatus});
   }
 
+  // Create a project
   createProject = (e) => {
     e.preventDefault();
 
-    console.log("Create project...");
-
+    // If there is a empty value -> error
     if (!this.title.input.value ||
         !this.shortDescription.input.refs.input.value ||
         !this.date.state.date ||
@@ -90,6 +92,7 @@ export default class CreateProject extends Component {
     {
       this.setState({create_error: true});
     }
+    // Recover the values of the fields and add the values in the database for the project created
     else
     {
       this.axios.post("https://markal.servehttp.com/dashboard/admin/projects", {
@@ -131,6 +134,7 @@ export default class CreateProject extends Component {
       marginRight: 20,
     };
 
+    // Add the different tags
     let tags = this.state.tags.map((tag, index) => (
       <Chip
         backgroundColor={cyanA700}
@@ -138,6 +142,7 @@ export default class CreateProject extends Component {
       >{tag}</Chip>
     ));
 
+    // Form to create a project
     return (
       <form onSubmit={this.createProject}>
         <h2>Créer un projet</h2>
@@ -159,9 +164,9 @@ export default class CreateProject extends Component {
           onChange={this.handleStatusChange}
         >
           <MenuItem value={0} primaryText="<None>" />
-          <MenuItem value={1} primaryText="In progress" />
-          <MenuItem value={2} primaryText="Canceled" />
-          <MenuItem value={3} primaryText="Finish" />
+          <MenuItem value={1} primaryText="En cours" />
+          <MenuItem value={2} primaryText="Annulé" />
+          <MenuItem value={3} primaryText="Terminé" />
         </SelectField>
         <br />
         <DatePicker
@@ -169,14 +174,13 @@ export default class CreateProject extends Component {
           mode="landscape"
           ref={(date) => { this.date = date; }}
         />
-
         <TextField
           floatingLabelText="Tags"
           errorText={(this.state.create_error && this.state.tags == "") ? "Ajoutez au moins une tag": ""}
           ref={(tagField) => { this.tagField = tagField; }}
         />
         <RaisedButton
-          label="Add"
+          label="Ajouter"
           primary={true}
           onClick={this.handleAddTag}
           />

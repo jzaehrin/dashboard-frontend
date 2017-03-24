@@ -6,9 +6,8 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Chip from 'material-ui/Chip';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
-import Avatar from 'material-ui/Avatar';
 import moment from 'moment';
-import {cyan50, cyan100, cyanA700 } from 'material-ui/styles/colors';
+import {cyan50, cyanA700 } from 'material-ui/styles/colors';
 
 export default class UpdateProject extends Component {
   static propTypes = {
@@ -52,12 +51,14 @@ export default class UpdateProject extends Component {
     requestUpdateProject: '',
   }
 
+  // Delete a tag
   handleRequestDeleteTags = (tag) => {
     this.setState(s => {
       return {tags: [...s.tags.filter(t => t !== tag)]}
     });
   }
 
+  // Add a tag
   handleAddTag = (event) => {
     event.preventDefault();
 
@@ -70,6 +71,7 @@ export default class UpdateProject extends Component {
     }
   }
 
+  // Find the current status
   findSelectedStatus (selectedValue) {
     switch (selectedValue) {
       case 'in_progress':
@@ -88,6 +90,7 @@ export default class UpdateProject extends Component {
     }
   }
 
+  // Define the different status that the user can choose for the creation for a project
   handleStatusChange = (event, index, statusValue) => {
     let selectedStatus = '';
 
@@ -111,9 +114,11 @@ export default class UpdateProject extends Component {
     this.setState({statusValue, selectedStatus});
   }
 
+  // Edit and update the project
   updateProject = (e) => {
     e.preventDefault();
 
+    // If there is a empty value -> error
     if (!this.title.input.value ||
         !this.shortDescription.input.refs.input.value ||
         !this.date.state.date ||
@@ -123,6 +128,7 @@ export default class UpdateProject extends Component {
     {
       this.setState({update_error: true});
     }
+    // Recover the values of the fields and update the values in the database for project selected
     else
     {
       this.axios.put("https://markal.servehttp.com/dashboard/admin/projects/" + this.props.project.id, {
@@ -156,14 +162,17 @@ export default class UpdateProject extends Component {
       margin: 4,
     }
 
+    // Display the different tags
     let tags = this.state.tags.map((tag, index) => (
       <Chip
+        style={chip}
         backgroundColor={cyanA700}
         onRequestDelete={this.handleRequestDeleteTags.bind(null, tag)}
       >{tag}</Chip>
     ));
     const project = this.props.project;
 
+    // Display the information for the project selected
     return (
       <form onSubmit={this.updateProject}>
         <h2>Modifier un projet</h2>
@@ -187,9 +196,9 @@ export default class UpdateProject extends Component {
           onChange={this.handleStatusChange}
         >
           <MenuItem value={0} primaryText="<None>" />
-          <MenuItem value={1} primaryText="In progress" />
-          <MenuItem value={2} primaryText="Canceled" />
-          <MenuItem value={3} primaryText="Finish" />
+          <MenuItem value={1} primaryText="En cours" />
+          <MenuItem value={2} primaryText="Annulé" />
+          <MenuItem value={3} primaryText="Terminé" />
         </SelectField>
         <br />
         <DatePicker
