@@ -3,6 +3,8 @@ import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'mat
 import FlatButton from 'material-ui/FlatButton';
 import Avatar from 'material-ui/Avatar';
 
+import {GridList, GridTile} from 'material-ui/GridList';
+
 import formatProject from '../../utils/project_helper';
 
 export default class Dashboard extends Component {
@@ -16,6 +18,7 @@ export default class Dashboard extends Component {
       tags: PropTypes.string,
       nbr_people: PropTypes.number,
       user: PropTypes.shape({
+        username: PropTypes.string,
         email: PropTypes.string,
       }),
     }).isRequired,

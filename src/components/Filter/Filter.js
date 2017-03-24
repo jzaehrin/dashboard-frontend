@@ -36,7 +36,9 @@ export default class Filter extends Component {
 
   //
   handleDatePickerChange = (empty, date) => {
-    this.props.handleDatePickerChange(date);
+    this.setState({
+      date: date
+    }, () => this.props.handleDatePickerChange(date));
   }
 
   //
@@ -53,6 +55,13 @@ export default class Filter extends Component {
   handleClearSearch = (event) => {
     this.search.input.value = "";
     this.props.handleSearch("");
+  }
+
+  //Handle cancel button form datepicker
+  handleDismissDatePicker = () => {
+    this.setState({
+      date: null
+    }, () => this.props.handleDatePickerChange(null));
   }
 
   // Add a tag
@@ -84,7 +93,7 @@ export default class Filter extends Component {
         selectedStatus = 'canceled';
         break;
       case 3:
-        selectedStatus = 'finish';
+        selectedStatus = 'finished';
         break;
       default:
         statusValue = '';
@@ -118,7 +127,6 @@ export default class Filter extends Component {
           />
           <RaisedButton
             icon={<MDClear />}
-            primary={true}
             onClick={this.handleClearSearch}
           />
         </div>
@@ -128,7 +136,7 @@ export default class Filter extends Component {
             value={this.state.statusValue}
             onChange={this.handleStatusChange}
           >
-            <MenuItem value={0} primaryText="<None>" />
+            <MenuItem value={0} primaryText="<Aucun>" />
             <MenuItem value={1} primaryText="En cours" />
             <MenuItem value={2} primaryText="Annulé" />
             <MenuItem value={3} primaryText="Terminé" />
@@ -137,7 +145,9 @@ export default class Filter extends Component {
             hintText="Date de fin"
             container="inline"
             mode="landscape"
+            value={this.state.date}
             onChange={this.handleDatePickerChange}
+            onDismiss={this.handleDismissDatePicker}
           />
           <RadioButtonGroup
             name="dateFiltred"

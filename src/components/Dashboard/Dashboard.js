@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import GridList from 'material-ui/GridList';
 import Subheader from 'material-ui/Subheader';
+import RaisedButton from 'material-ui/RaisedButton';
+import MDCached from 'material-ui/svg-icons/action/cached';
 import Axios from 'axios';
 import moment from 'moment';
 
@@ -52,6 +54,10 @@ export default class Dashboard extends Component {
 
   handleDetails(projects) {
     this.setState({ details_project: projects });
+  }
+
+  handleUpdateList = () => {
+    this.getProjects("");
   }
 
   handleTagsChange = (filterTags) => {
@@ -110,13 +116,12 @@ export default class Dashboard extends Component {
   }
 
   render() {
-    let projects = [];
 
-    this.state.projects.map((project) => {
-      if (this.filterScoop(project)) {
-        projects.push((<Project data={project} handleDetails={this.handleDetails} />));
-      }
-    });
+    console.log("State", this.state);
+
+    let projects = this.state.projects
+      .filter(p => this.filterScoop(p))
+      .map((p, i) => <Project data={p} handleDetails={this.handleDetails} key={i} />)
 
     let message = '';
     if (this.state.search) {
@@ -144,6 +149,11 @@ export default class Dashboard extends Component {
           handleDateTypeChange={this.handleDateTypeChange}
           handleTagsChange={this.handleTagsChange}
           handleSearch = {this.handleSearch}
+        />
+        <RaisedButton
+          icon={<MDCached />}
+          primary={true}
+          onClick={this.handleUpdateList}
         />
         {message}
         <GridList

@@ -79,9 +79,8 @@ export default class App extends Component {
         }
       })
         .then((response) => {
-          this.email.input.value = "";
-          this.username.input.value = "";
-          this.password.input.value = "";
+          this.form.reset();
+
           this.setState({error: {
             create: false
           }});
@@ -150,7 +149,10 @@ export default class App extends Component {
 
     return (
       <div>
-        <form onSubmit={this.createProjectManager}>
+        <form
+          onSubmit={this.createProjectManager}
+          ref={(form) => this.form = form}
+        >
           <h2>Créer un chef de projet</h2>
           <TextField
             floatingLabelText="Username"

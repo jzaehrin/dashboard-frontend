@@ -38,6 +38,14 @@ export default class UpdateProject extends Component {
     })
   }
 
+  componentWillReceiveProps(nextProps){
+    this.form.reset();
+    this.setState({
+      tags: nextProps.project.tags.split(', '),
+      statusValue: this.findSelectedStatus(nextProps.project.status)
+    });
+  }
+
   state = {
     title: '',
     shortDescription: '',
@@ -171,10 +179,14 @@ export default class UpdateProject extends Component {
       >{tag}</Chip>
     ));
     const project = this.props.project;
+    console.log("Project Update", project);
 
     // Display the information for the project selected
     return (
-      <form onSubmit={this.updateProject}>
+      <form
+        onSubmit={this.updateProject}
+        ref={(form) => {this.form = form}}
+      >
         <h2>Modifier un projet</h2>
         <TextField
           floatingLabelText="Titre"

@@ -116,6 +116,12 @@ export default class ManageProject extends Component {
       </Chip>
     ));
 
+    if (projects.length < 1) {
+      projects = (
+        <p>Aucun projet disponnible</p>
+      );
+    }
+
     // Display the form to edit and update a project
     let updateProject = '';
     if (this.state.requestUpdateProject) {

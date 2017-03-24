@@ -113,9 +113,7 @@ export default class CreateProject extends Component {
             tags: [],
             create_error: false
           }, () => {
-            this.title.input.value = "";
-            this.shortDescription.input.refs.input.value = "";
-            this.nbrPeople.input.value = "";
+            this.form.reset();
 
             if (this.props.handleRefreshProjectList != undefined) {
               this.props.handleRefreshProjectList()
@@ -144,7 +142,10 @@ export default class CreateProject extends Component {
 
     // Form to create a project
     return (
-      <form onSubmit={this.createProject}>
+      <form
+        onSubmit={this.createProject}
+        ref={(form) => this.form = form}
+      >
         <h2>Créer un projet</h2>
         <TextField
           floatingLabelText="Titre"
