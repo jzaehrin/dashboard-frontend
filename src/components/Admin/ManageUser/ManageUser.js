@@ -109,11 +109,15 @@ export default class App extends Component {
   }
 
   render() {
-    console.log(this.state);
+    const chip = {
+      margin: 4,
+    };
+
     let error = this.state.error.create;
 
     let users = this.state.users.map((user, index) => (
       <Chip
+        style={chip}
         onRequestDelete={
           (user.id == JwtDecode(this.props.auth_jwt).user_id) ?
             null:

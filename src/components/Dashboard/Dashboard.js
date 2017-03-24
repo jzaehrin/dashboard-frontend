@@ -26,6 +26,7 @@ export default class Dashboard extends Component {
     filter: [],
   };
 
+  // Recover the search and all the projects
   getProjects(search) {
     if (search) {
       Axios.get('https://markal.servehttp.com/dashboard/projects/search', {
@@ -118,17 +119,20 @@ export default class Dashboard extends Component {
       }
     });
 
+    //If the entered values ​​don't match the data in the database, display a message
     let message = '';
     if (this.state.search) {
-      message = (<p>{projects.length} projects was found</p>)
+      message = (<p>{projects.length} projets trouvés</p>)
     }
 
+    // If there are no projects in the database, display a message
     if (projects.length < 1) {
       if (!this.state.search) {
-        message = (<p>0 projects in the database, if you are a project manager, go to the admin panel for register once</p>)
+        message = (<p>Il n'y aucun projet dans la base de données. Veuillez vous connectez afin de créer un projet</p>)
       }
     }
 
+    // Display the details for a project
     let project_details = '';
     if(this.state.details_project){
       project_details = (<ProjectDetails data={this.state.details_project} />);
@@ -136,7 +140,10 @@ export default class Dashboard extends Component {
 
     return (
       <div>
+        {/* Display the detail for a project */}
         {project_details}
+
+        {/* Display the different filter */}
         <Filter
           ref={(filter) => this.filter = filter}
           handleStatusChange={this.handleStatusChange}
@@ -145,7 +152,11 @@ export default class Dashboard extends Component {
           handleTagsChange={this.handleTagsChange}
           handleSearch = {this.handleSearch}
         />
+
+        {/* Display the different messages */}
         {message}
+
+        {/* Display the card for the projects*/}
         <GridList
           cols={3}
           cellHeight={175}

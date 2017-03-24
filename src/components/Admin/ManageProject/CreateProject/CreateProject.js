@@ -134,15 +134,20 @@ export default class CreateProject extends Component {
       marginRight: 20,
     };
 
+    const chip = {
+      margin: 4,
+    };
+
     // Add the different tags
     let tags = this.state.tags.map((tag, index) => (
       <Chip
+        style={chip}
         backgroundColor={cyanA700}
         onRequestDelete={this.handleRequestDeleteTags.bind(null, tag)}
       >{tag}</Chip>
     ));
 
-    // Form to create a project
+    // Form to create a project, display a error if the field is empty
     return (
       <form onSubmit={this.createProject}>
         <h2>Créer un projet</h2>
@@ -184,6 +189,7 @@ export default class CreateProject extends Component {
           primary={true}
           onClick={this.handleAddTag}
           />
+        {/* Display the tags */}
         <div>
           {tags}
         </div><br />
