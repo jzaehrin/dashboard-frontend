@@ -22,6 +22,7 @@ export default class Admin extends Component {
     auth_error: ""
   };
 
+  // Get JWT
   getToken(data) {
     Axios.post('https://markal.servehttp.com/dashboard/authenticate', {
       'email': data.login,
@@ -46,13 +47,13 @@ export default class Admin extends Component {
     this.getToken(data)
   }
 
-  // Logout the user and clear the local storage where the token is stored
+  // Logout the user and clear the local storage
   logout = () => {
     localStorage.clear();
     this.forceUpdate();
   }
 
-  // Create a token when the user is authenticate
+  // Verify if the token is valid
   isAuthenticate(){
     let token = localStorage.getItem('x-access-token');
 
@@ -82,7 +83,7 @@ export default class Admin extends Component {
       let auth_jwt = localStorage.getItem('x-access-token');
       console.log(JwtDecode(auth_jwt));
 
-      // Display the panel to create and delete users
+      // Display the panel to create and delete users if the authenticate user is admin
       let admin_panel = '';
       if (JwtDecode(auth_jwt).is_admin) {
         admin_panel = (
@@ -110,7 +111,6 @@ export default class Admin extends Component {
     }
     // If the user isn't connected, display the panel for the authentication
     else{
-      // D
       page_login = (
         <Authenticate
           onSubmit={this.onSubmitCredential}

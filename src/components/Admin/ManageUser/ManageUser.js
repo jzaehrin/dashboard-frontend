@@ -34,6 +34,7 @@ export default class ManageUser extends Component {
     },
   }
 
+  // Load project manager
   getProjectManager(){
     this.axios.get('https://markal.servehttp.com/dashboard/admin/users')
       .then((response) => {
@@ -45,6 +46,7 @@ export default class ManageUser extends Component {
       })
   }
 
+  // Create project
   createProjectManager = (e) => {
     e.preventDefault();
     let username = this.username.input.value;
@@ -58,6 +60,7 @@ export default class ManageUser extends Component {
         create: true
       }});
     }
+    // Verify colate on Username or Email
     else if(this.state.users.filter(u => u.username === username).length > 0 ){
       this.setState({error: {
         create: true,
@@ -99,6 +102,7 @@ export default class ManageUser extends Component {
     }
   }
 
+  // Delete Project
   handleDeleteProjectManager = (user) => {
     this.axios.delete("https://markal.servehttp.com/dashboard/admin/users/" + user.id)
       .then((response) => {

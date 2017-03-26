@@ -113,8 +113,10 @@ export default class CreateProject extends Component {
             tags: [],
             create_error: false
           }, () => {
+            // Clear the form
             this.form.reset();
 
+            // Clean props 
             if (this.props.handleRefreshProjectList != undefined) {
               this.props.handleRefreshProjectList()
             }

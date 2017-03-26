@@ -31,6 +31,7 @@ export default class UpdateProject extends Component {
     });
   }
 
+  //Load init tags and status
   componentWillMount(){
     this.setState({
       tags: this.props.project.tags.split(', '),
@@ -38,6 +39,7 @@ export default class UpdateProject extends Component {
     })
   }
 
+  // Refresh selected project
   componentWillReceiveProps(nextProps){
     this.form.reset();
     this.setState({

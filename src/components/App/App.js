@@ -19,6 +19,7 @@ export default class App extends Component {
     console.debug(this);
   }
 
+  // Switching view between admin panel and 
   handleToogleTab = () => {
     this.setState(s => {
       return {admin: !s.admin}
