@@ -95,17 +95,15 @@ export default class Admin extends Component {
       // Display the panel to create, delete and update projects
       page_panel = (
         <div>
-          <br />
-          {admin_panel}
-          <br />
-          <ManageProject
-            auth_jwt={auth_jwt}
-          /><br />
           <RaisedButton
             backgroundColor={cyan700}
             type="submit"
             label="Déconnexion"
             onClick={this.logout}
+          />
+          {admin_panel}
+          <ManageProject
+            auth_jwt={auth_jwt}
           />
         </div>
       );

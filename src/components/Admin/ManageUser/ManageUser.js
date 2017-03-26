@@ -3,11 +3,13 @@ import TextField from 'material-ui/TextField';
 import Chip from 'material-ui/Chip';
 import Toggle from 'material-ui/Toggle';
 import Axios from 'axios';
+import Subheader from 'material-ui/Subheader';
+import GridList from 'material-ui/GridList';
 import JwtDecode from 'jwt-decode';
 import RaisedButton from 'material-ui/RaisedButton';
 import {cyan100} from 'material-ui/styles/colors';
 
-export default class App extends Component {
+export default class ManageUser extends Component {
 
   static propTypes = {
     auth_jwt: PropTypes.string.isRequired,
@@ -152,7 +154,11 @@ export default class App extends Component {
     }
 
     return (
-      <div>
+      <GridList
+        cols={3}
+        cellHeight={400}
+      >
+        <Subheader>Panel admin</Subheader>
         <form
           onSubmit={this.createProjectManager}
           ref={(form) => this.form = form}
@@ -176,6 +182,7 @@ export default class App extends Component {
           /><br />
           <Toggle
             label="Admin"
+            labelPosition="right"
             ref={(isAdmin) => this.isAdmin = isAdmin}
           /><br />
           {error_message}
@@ -186,9 +193,11 @@ export default class App extends Component {
           />
         </form>
 
-        <h2>Supprimer un chef de projet</h2>
-        {users}
-      </div>
+        <div>
+          <h2>Supprimer un chef de projet</h2>
+          {users}
+        </div>
+      </GridList>
     );
   }
 }

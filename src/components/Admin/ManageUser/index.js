@@ -1,3 +1,3 @@
-import App from './ManageUser';
+import ManageUser from './ManageUser';
 
-export default App;
+export default ManageUser;

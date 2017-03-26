@@ -1,7 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import Axios from 'axios';
 import Chip from 'material-ui/Chip';
+import GridList from 'material-ui/GridList';
+import Subheader from 'material-ui/Subheader';
 import Avatar from 'material-ui/Avatar';
+
 import RaisedButton from 'material-ui/RaisedButton';
 import {cyan100, cyanA700 } from 'material-ui/styles/colors';
 
@@ -10,6 +13,7 @@ import CreateProject from './CreateProject/CreateProject';
 import UpdateProject from './UpdateProject/UpdateProject';
 
 export default class ManageProject extends Component {
+
   static propTypes = {
     auth_jwt: PropTypes.string.isRequired,
   }
@@ -134,8 +138,9 @@ export default class ManageProject extends Component {
       );
     }
 
-    return (
+    return(
       <div>
+        <Subheader>Panel de gestion de projet</Subheader>
         {/* Display the form to create a project */}
         <CreateProject
           auth_jwt={this.props.auth_jwt}

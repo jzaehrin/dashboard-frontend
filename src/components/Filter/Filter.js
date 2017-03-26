@@ -6,9 +6,10 @@ import MenuItem from 'material-ui/MenuItem';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import Chip from 'material-ui/Chip';
+import GridList from 'material-ui/GridList';
 import MDClear from 'material-ui/svg-icons/content/clear';
 import MDSearch from 'material-ui/svg-icons/action/search';
-import {cyanA700 } from 'material-ui/styles/colors';
+import {cyanA700} from 'material-ui/styles/colors';
 
 
 export default class Filter extends Component {
@@ -119,7 +120,10 @@ export default class Filter extends Component {
 
     // Display the different filters
     return (
-      <div>
+      <GridList
+          cols={4}
+          cellHeight={150}
+      >
         <div>
           {/* Display the field for the search */}
           <TextField
@@ -137,7 +141,6 @@ export default class Filter extends Component {
             onClick={this.handleClearSearch}
           />
         </div>
-        <div>
           {/* Display the different status in a selected field*/}
           <SelectField
             floatingLabelText="Status"
@@ -150,39 +153,42 @@ export default class Filter extends Component {
             <MenuItem value={3} primaryText="Terminé" />
           </SelectField>
           {/* Display a form for the date and can choose if the date is before or after the date selected */}
-          <DatePicker
-            hintText="Date de fin"
-            container="inline"
-            mode="landscape"
-            value={this.state.date}
-            onChange={this.handleDatePickerChange}
-            onDismiss={this.handleDismissDatePicker}
-          />
-          <RadioButtonGroup
-            name="dateFiltred"
-            onChange={this.handleDateTypeChange}
-          >
-            <RadioButton
-              value={-1}
-              label="Avant"
-            />
-            <RadioButton
-              value={1}
-              label="Après"
-            />
-          </RadioButtonGroup>
-          {/* Display the field to add different tags */}
-          <TextField
-            hintText="Mots-clé sans accent !"
-            floatingLabelText="Ajouter une tag"
-            ref={(field) => this.tagField = field}
-          />
-          <RaisedButton label="Ajouter" primary={true} onClick={this.handleAddTag}/>
           <div>
-            {tags}
+            <DatePicker
+              hintText="Date de fin"
+              container="inline"
+              mode="landscape"
+              value={this.state.date}
+              onChange={this.handleDatePickerChange}
+              onDismiss={this.handleDismissDatePicker}
+            />
+            <RadioButtonGroup
+              name="dateFiltred"
+              onChange={this.handleDateTypeChange}
+            >
+              <RadioButton
+                value={-1}
+                label="Avant"
+              />
+              <RadioButton
+                value={1}
+                label="Après"
+              />
+            </RadioButtonGroup>
           </div>
-        </div>
-      </div>
+          {/* Display the field to add different tags */}
+          <div>
+            <TextField
+              hintText="Mots-clé sans accent !"
+              floatingLabelText="Ajouter une tag"
+              ref={(field) => this.tagField = field}
+            />
+            <RaisedButton label="Ajouter" primary={true} onClick={this.handleAddTag}/>
+            <div>
+              {tags}
+            </div>
+          </div>
+      </GridList>
     );
   }
 }
