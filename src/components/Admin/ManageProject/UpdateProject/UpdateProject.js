@@ -242,7 +242,7 @@ export default class UpdateProject extends Component {
         <RaisedButton
           backgroundColor={cyan50}
           type="submit"
-          label="Créer"
+          label="Modifier"
           style={style} />
       </form>
   );

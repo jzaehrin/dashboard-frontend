@@ -155,7 +155,7 @@ export default class Filter extends Component {
           {/* Display a form for the date and can choose if the date is before or after the date selected */}
           <div>
             <DatePicker
-              hintText="Date de fin"
+              hintText="Date d'écheance"
               container="inline"
               mode="landscape"
               value={this.state.date}
